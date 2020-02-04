@@ -12067,7 +12067,7 @@ function validateCurvesCalcArguments(startDate, endDate, fsiv, fpfv, si25, si50,
         invalidFields.push('lpft');
       } else if (latest) {
         var diff = targetLpft.diff(latest, 'd');
-        if (diff < 7 + fpfvFpft * 7) {
+        if (diff < 1 + fpfvFpft) {
           invalidFields.push('lpft');
         }
       }
@@ -13674,7 +13674,7 @@ function calculateOverallocatedData(tableData, scenario, countriesData, cohortSc
               newRow.fpfv = null;
             }
 
-            if (newRow.lpft && newRow.fpfv_fpft) {
+            if (newRow.lpft && newRow.fpfv_fpft >= 0) {
               newRow.lpfv = newRow.lpft.clone().subtract(newRow.fpfv_fpft, 'd');
               newRow.fpfv_lpfv = newRow.lpfv.diff(newRow.fpfv, 'd');
             }
@@ -18753,18 +18753,18 @@ function aggregateFsivCurves(curves) {
     // Normalize curves and create an object where key is week number, value is all this week values
     var newItem = item.slice();
     var counter = 0;
-    do {
+    while (newItem[newItem.length - 1][0] < latestWeek) {
       if (counter >= 10000) break;
       var newVal = item[item.length - 1][1];
       var newWeek = newItem[newItem.length - 1][0] + 1;
       newItem.push([newWeek, newVal]);
       counter += 1;
-    } while (newItem[newItem.length - 1][0] <= latestWeek);
+    }
 
     return newItem.reduce(function (res, element) {
       if (!res[element[0]]) {
         res[element[0]] = [element[1]];
-      } else if (res[element[0]].length < 2) {
+      } else if (res[element[0]].length <= 2) {
         res[element[0]].push(element[1]);
       }
 
