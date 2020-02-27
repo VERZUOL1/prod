@@ -5,17 +5,15 @@ const PlatformStudy = require('../platform_db_API/study_table');
 const ParameterActuals = require('../platform_db_API/parameter_actuals_table');
 const TimeseriesActuals = require('../platform_db_API/timeseries_actuals_table.js');
 const LatestActuals = require('../platform_db_API/latest_actuals');
-const log = require('../../../utils/logger');
 
 /**
  * Prepare actuals object
  * @returns {{}}
  */
 function getActualsData(actualsParameters, actualsTimeseries, countryId, fp, latestActuals, minMax) {
-  log.debug(`Getting actuals for country: ${countryId}: ${JSON.stringify(minMax)}`);
   let actuals = {};
   let countryLatestActuals = {};
-  const parameters = actualsParameters.find(element => element.country_id === countryId);
+  const parameters = actualsParameters.find(element => +element.country_id === +countryId);
   if (parameters) {
     actuals = {
       actual_fsiv: parameters.fp_fsiv ? getMomentDate(fp)
@@ -39,10 +37,9 @@ function getActualsData(actualsParameters, actualsTimeseries, countryId, fp, lat
       actual_overallocation: parameters.overallocation,
       original_f_lpft: parameters.original_f_lpft
     };
-    log.debug(`Actual parameters for country: ${countryId}: ${JSON.stringify(actuals)}`);
   }
 
-  let timeSeries = actualsTimeseries.filter(element => element.country_id === countryId);
+  let timeSeries = actualsTimeseries.filter(element => +element.country_id === +countryId);
   timeSeries = timeSeries.map(item => {
     const date = getMomentDate(item.date);
     return {
@@ -54,7 +51,7 @@ function getActualsData(actualsParameters, actualsTimeseries, countryId, fp, lat
     .sort(sortByDateAscending);
   const lastActualElement = _.findLast(timeSeries, element => element.type === 'ACTUALS');
   const timeSeriesLatestActualDate = _.get(lastActualElement, 'date');
-  countryLatestActuals = latestActuals.find(item => item.country_id === countryId);
+  countryLatestActuals = latestActuals.find(item => +item.country_id === +countryId);
 
   if (countryLatestActuals && lastActualElement) {
     const siteInitiated = countryLatestActuals.sites_initiated;
@@ -90,8 +87,6 @@ function getActualsData(actualsParameters, actualsTimeseries, countryId, fp, lat
   }, {});
 
   timeSeries = timeSeries.sort(sortByDateAscending);
-
-  log.debug(`Actual timeseries for country: ${countryId}: ${timeSeries.length}`);
 
   if (timeSeries && timeSeries.length > 0) {
     // prepare reference array
@@ -161,8 +156,6 @@ function getActualsData(actualsParameters, actualsTimeseries, countryId, fp, lat
       };
     }
   }
-
-  log.debug(`Final actuals for country: ${countryId}: ${Object.keys(actuals)}`);
 
   return actuals;
 }
