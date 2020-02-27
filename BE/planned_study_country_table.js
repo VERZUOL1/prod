@@ -127,6 +127,9 @@ async function getImpactScenarioById(id) {
     // eslint-disable-next-line
     ({ actualsTimeseries, actualsParameters, fp, latestActuals } = data);
 
+    log.debug(`Actual data for study ${foundStudy.study_id}: timeseries => ${actualsTimeseries.length};
+     parameters => ${actualsParameters.length}, fp: ${fp}, latestActuals: ${latestActuals.length}`);
+
     scenario.countries = countries.map(country => {
       const plainItem = country.get({ plain: true });
       const countryRegion = _.find(platformRegions, region => region.name && plainItem.country.region.name
