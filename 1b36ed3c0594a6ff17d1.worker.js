@@ -20221,7 +20221,7 @@ function getCurvesAndMilestonesAdjusted(startDate, endDate, fpfvFpft, fsiv, fpfv
     }
 
     // calculate site initiation percentage
-    var totalDuration = Math.ceil(_moment2.default.duration(endDate.diff(startDate)).asWeeks());
+    var totalDuration = Math.ceil(_moment2.default.duration(endDate.diff(startDate)).asDays());
     var SIPercentile25 = si25.diff(startDate, 'd') - FPP_FSIV;
     var SIPercentile50 = si50.diff(startDate, 'd') - FPP_FSIV;
     var SIPercentile90 = si90.diff(startDate, 'd') - FPP_FSIV;
