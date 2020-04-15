@@ -15,4 +15,7 @@ study.js
 App/db_ui/models
 
 studies.js
-App/server/middlewares.js
+App/server/middlewares/studies.js
+
+duplicateScenarioCohorts.js
+App/server/api_helpers/duplication/duplicateScenarioCohorts.js
