@@ -18614,6 +18614,7 @@ var splitCountryValuesByType = function splitCountryValuesByType(data) {
         planned_lpft = item.lpft,
         planned_fpft = item.fpft,
         planned_fpp_fpfv = item.fpp_fpfv,
+        planned_lpfv = item.lpfv,
         planned_invalidFields = item.invalidFields,
         generatedFields = item.generatedFields,
         actual_curves = item.actual_curves,
@@ -18659,12 +18660,13 @@ var splitCountryValuesByType = function splitCountryValuesByType(data) {
         adjusted_randomisation_rate = item.adjusted_randomisation_rate,
         adjusted_screening_failure = item.adjusted_screening_failure,
         adjusted_sr = item.adjusted_sr,
+        adjusted_lpfv = item.adjusted_lpfv,
         adjusted_lpft = item.adjusted_lpft,
         adjusted_invalids = item.adjusted_invalids,
         adjusted_invalidFields = item.adjusted_invalidFields,
         adjusted_overrideList = item.adjusted_overrideList,
         adjusted_errorMessages = item.adjusted_errorMessages,
-        rest = _objectWithoutProperties(item, ['curves', 'patient_allocation', 'patient_allocation_min', 'patient_allocation_max', 'num_sites', 'fsiv', 'sas', '25_si', '50_si', '90_si', 'fpfv', 'fpfv_lpfv', 'fpfv_fpft', 'randomisation_rate', 'screening_failure', 'sr', 'lpft', 'fpft', 'fpp_fpfv', 'invalidFields', 'generatedFields', 'actual_curves', 'actual_patient_allocation', 'actual_num_sites', 'actual_fsiv', 'actual_sas', 'actual_25_si', 'actual_50_si', 'actual_90_si', 'actual_fpfv', 'actual_fpfv_lpfv', 'actual_randomisation_rate', 'actual_screening_failure', 'actual_screening_rate', 'actual_f_lpft', 'actual_date', 'actual_fpft', 'actual_fpp_fpfv', 'actual_lpfv', 'actual_overallocation', 'actual_randomized', 'actual_screened', 'actual_siv', 'q25_actual_randomized', 'q75_actual_randomized', 'adjusted_curves', 'adjusted_patient_allocation', 'adjusted_patient_allocation_min', 'adjusted_patient_allocation_max', 'adjusted_num_sites', 'adjusted_fsiv', 'adjusted_sas', 'adjusted_25_si', 'adjusted_50_si', 'adjusted_90_si', 'adjusted_fpfv', 'adjusted_fpfv_lpfv', 'adjusted_fpfv_fpft', 'adjusted_fpp_fpfv', 'adjusted_fpft', 'adjusted_unlock', 'adjusted_randomisation_rate', 'adjusted_screening_failure', 'adjusted_sr', 'adjusted_lpft', 'adjusted_invalids', 'adjusted_invalidFields', 'adjusted_overrideList', 'adjusted_errorMessages']);
+        rest = _objectWithoutProperties(item, ['curves', 'patient_allocation', 'patient_allocation_min', 'patient_allocation_max', 'num_sites', 'fsiv', 'sas', '25_si', '50_si', '90_si', 'fpfv', 'fpfv_lpfv', 'fpfv_fpft', 'randomisation_rate', 'screening_failure', 'sr', 'lpft', 'fpft', 'fpp_fpfv', 'lpfv', 'invalidFields', 'generatedFields', 'actual_curves', 'actual_patient_allocation', 'actual_num_sites', 'actual_fsiv', 'actual_sas', 'actual_25_si', 'actual_50_si', 'actual_90_si', 'actual_fpfv', 'actual_fpfv_lpfv', 'actual_randomisation_rate', 'actual_screening_failure', 'actual_screening_rate', 'actual_f_lpft', 'actual_date', 'actual_fpft', 'actual_fpp_fpfv', 'actual_lpfv', 'actual_overallocation', 'actual_randomized', 'actual_screened', 'actual_siv', 'q25_actual_randomized', 'q75_actual_randomized', 'adjusted_curves', 'adjusted_patient_allocation', 'adjusted_patient_allocation_min', 'adjusted_patient_allocation_max', 'adjusted_num_sites', 'adjusted_fsiv', 'adjusted_sas', 'adjusted_25_si', 'adjusted_50_si', 'adjusted_90_si', 'adjusted_fpfv', 'adjusted_fpfv_lpfv', 'adjusted_fpfv_fpft', 'adjusted_fpp_fpfv', 'adjusted_fpft', 'adjusted_unlock', 'adjusted_randomisation_rate', 'adjusted_screening_failure', 'adjusted_sr', 'adjusted_lpfv', 'adjusted_lpft', 'adjusted_invalids', 'adjusted_invalidFields', 'adjusted_overrideList', 'adjusted_errorMessages']);
 
     // todo remove unused from here
 
@@ -18720,6 +18722,7 @@ var splitCountryValuesByType = function splitCountryValuesByType(data) {
       randomisation_rate: planned_randomisation_rate,
       screening_failure: planned_screening_failure,
       sr: planned_sr,
+      lpfv: planned_lpfv,
       lpft: planned_lpft,
       fpft: planned_fpft,
       fpp_fpfv: planned_fpp_fpfv,
@@ -18780,7 +18783,7 @@ var splitCountryValuesByType = function splitCountryValuesByType(data) {
       screening_failure: adjusted_screening_failure,
       sr: adjusted_sr,
       lpft: adjusted_lpft,
-
+      lpfv: adjusted_lpfv,
       fpfv_fpft: adjusted_fpfv_fpft,
       fpp_fpfv: adjusted_fpp_fpfv,
       fpft: adjusted_fpft,
@@ -18826,6 +18829,7 @@ var rowDataTemplate = function rowDataTemplate(location, type, valuesType) {
     fpfv: null,
     fpfv_lpfv: 0,
     lpft: null,
+    lpfv: null,
     fpft: null,
     fpp_fpfv: 0,
     unlock: [],
@@ -18855,7 +18859,7 @@ var getPrefixedData = function getPrefixedData() {
   var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
   var prefix = data.valuesType + '_';
-  var result = (_result = {}, _defineProperty(_result, prefix + 'curves', data.curves), _defineProperty(_result, prefix + 'lpft', data.lpft), _defineProperty(_result, prefix + 'fpfv_lpfv', data.fpfv_lpfv), _defineProperty(_result, prefix + 'fpp_fpfv', data.fpp_fpfv), _defineProperty(_result, prefix + 'fpfv', data.fpfv), _defineProperty(_result, prefix + 'fpft', data.fpft), _defineProperty(_result, prefix + 'fsiv', data.fsiv), _defineProperty(_result, prefix + 'fpfv_fpft', data.fpfv_fpft), _defineProperty(_result, prefix + '25_si', data['25_si']), _defineProperty(_result, prefix + '50_si', data['50_si']), _defineProperty(_result, prefix + '90_si', data['90_si']), _defineProperty(_result, prefix + 'num_sites', data.num_sites), _defineProperty(_result, prefix + 'patient_allocation', data.patient_allocation), _defineProperty(_result, prefix + 'patient_allocation_min', data.patient_allocation_min), _defineProperty(_result, prefix + 'patient_allocation_max', data.patient_allocation_max), _defineProperty(_result, prefix + 'sas', data.sas), _defineProperty(_result, prefix + 'screening_failure', data.screening_failure), _defineProperty(_result, prefix + 'sr', data.sr), _defineProperty(_result, prefix + 'randomisation_rate', data.randomisation_rate), _defineProperty(_result, prefix + 'invalids', data.invalidFields), _defineProperty(_result, prefix + 'errorMessages', data.errorMessages), _defineProperty(_result, prefix + 'overrideList', data.overrideList), _defineProperty(_result, prefix + 'unlock', data.unlock), _result);
+  var result = (_result = {}, _defineProperty(_result, prefix + 'curves', data.curves), _defineProperty(_result, prefix + 'lpft', data.lpft), _defineProperty(_result, prefix + 'lpfv', data.lpfv), _defineProperty(_result, prefix + 'fpfv_lpfv', data.fpfv_lpfv), _defineProperty(_result, prefix + 'fpp_fpfv', data.fpp_fpfv), _defineProperty(_result, prefix + 'fpfv', data.fpfv), _defineProperty(_result, prefix + 'fpft', data.fpft), _defineProperty(_result, prefix + 'fsiv', data.fsiv), _defineProperty(_result, prefix + 'fpfv_fpft', data.fpfv_fpft), _defineProperty(_result, prefix + '25_si', data['25_si']), _defineProperty(_result, prefix + '50_si', data['50_si']), _defineProperty(_result, prefix + '90_si', data['90_si']), _defineProperty(_result, prefix + 'num_sites', data.num_sites), _defineProperty(_result, prefix + 'patient_allocation', data.patient_allocation), _defineProperty(_result, prefix + 'patient_allocation_min', data.patient_allocation_min), _defineProperty(_result, prefix + 'patient_allocation_max', data.patient_allocation_max), _defineProperty(_result, prefix + 'sas', data.sas), _defineProperty(_result, prefix + 'screening_failure', data.screening_failure), _defineProperty(_result, prefix + 'sr', data.sr), _defineProperty(_result, prefix + 'randomisation_rate', data.randomisation_rate), _defineProperty(_result, prefix + 'invalids', data.invalidFields), _defineProperty(_result, prefix + 'errorMessages', data.errorMessages), _defineProperty(_result, prefix + 'overrideList', data.overrideList), _defineProperty(_result, prefix + 'unlock', data.unlock), _result);
 
   if (data.valuesType === 'actual') {
     result = _extends({}, result, {
