@@ -13698,7 +13698,7 @@ function calculateOverallocatedData(tableData, scenario, countriesData, cohortSc
             newRow.patient_allocation = targetPat ? Math.floor(targetPat[1]) : null;
 
             if (newRow.lpft && newRow.fpfv_fpft >= 0) {
-              var targetScrPat = Math.trunc(newRow.patient_allocation / (1 - newRow.screening_failure));
+              var targetScrPat = Math.ceil(newRow.patient_allocation / (1 - newRow.screening_failure));
               var scrCurve = newRow.curves[1];
               var targetScreening = scrCurve.find(function (screenedElement) {
                 return screenedElement[1] >= targetScrPat;
