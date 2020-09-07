@@ -1,3 +1,0 @@
-insertHistoricalAppDataMilestones.js
-
-app/server/api_helpers/integration_utils/insertHistoricalAppDataMilestones/insertHistoricalAppDataMilestones.js
